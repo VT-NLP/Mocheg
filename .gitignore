@@ -1,0 +1,42 @@
+dataset_builder/crawler/out/
+dataset_builder/crawler/Results/ 
+dataset_builder/crawler/target/
+dataset_builder/crawler/log/**
+dataset_builder/multi_media/out
+dataset_builder/multi_media/storage
+dataset_builder/multi_media/Results/** 
+dataset_builder/crawler/src/test/resources/**
+#
+dataset_builder/multi_media/**
+dataset_builder/final_corpus/**
+dataset_builder/twitter/**
+#
+
+
+
+##
+*.tar.gz
+*.png 
+*.img 
+*.pyc
+dataset_builder/crawler/.settings/org.eclipse.m2e.core.prefs
+dataset_builder/crawler/.classpath
+dataset_builder/crawler/.project
+dataset_builder/crawler/.settings/org.eclipse.jdt.apt.core.prefs
+dataset_builder/crawler/.settings/org.eclipse.jdt.core.prefs
+# *.json
+dataset_builder/crawler/.factorypath
+# Results/**
+# log/**
+ 
+
+dataset_builder/multi_media/util/tried_image_crawler/test_url.csv
+dataset_builder/twitter/merger.py
+dataset_builder/README.md
+dataset_builder/preprocess.sh
+process.sh
+ 
+dataset_builder/helper.sh
+dataset_builder/crawler/README
+dataset_builder/main.py
+dataset_builder/test.py
