@@ -1,0 +1,21 @@
+{
+  "mode": "inference",
+  "model_type": "CLAIM_TEXT_IMAGE_attention_5_4",
+  "batch_size": 2048,
+  "loss_weight_power": 3,
+  "checkpoint_dir": "checkpoint/claim_verification/text_and_image_evidence",
+  "outdir": "verification/output/runs",
+  "train_dir": "/home/menglong/workspace/code/referred/conll2019-snopes-crawling/final_corpus/mocheg2/train",
+  "val_dir": "/home/menglong/workspace/code/referred/conll2019-snopes-crawling/final_corpus/mocheg2/val",
+  "test_dir": "/home/menglong/workspace/code/referred/conll2019-snopes-crawling/final_corpus/mocheg2/test",
+  "evidence_file_name": "Corpus2_for_verification.csv",
+  "max_image_num": 5,
+  "verbos": "y",
+  "lr": 0.1,
+  "early_stop": 10,
+  "is_wandb": "y",
+  "save_in_checkpoint_dir": "n",
+  "save_predict": "y",
+  "run_dir": "verification/output/runs/00000-",
+  "cur_run_id": 0
+}

@@ -32,8 +32,7 @@ from controllable.generation.call_back import TimerCallback
 # from controllable.generation.data.collator import DataCollatorForControllableSeq2Seq
 from controllable.generation.model.controllable_bart import BartForControllableGeneration
 from controllable.generation.trainer import CGSeq2SeqTrainer
-from generation.util.argument import * 
-
+from controllable.generation.util.argument import *
  
  
 # Will error if the minimal version of Transformers is not installed. Remove at your own risks.

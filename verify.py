@@ -25,7 +25,8 @@ from ray import tune
 from ray.tune import CLIReporter
 from ray.tune.schedulers import ASHAScheduler
 from functools import partial
-from verification.mp_inference import mp_inference 
+
+
 from verification.util.constants import * 
 from verification.util.metric import *
 from verification.train_verify import train_loop 
@@ -103,8 +104,7 @@ def main(ctx,  **config_kwargs):
         train_loop(None,config_kwargs)
     elif mode=="hyper_search":
         hyper_search(config_kwargs)
-    elif mode=="mp_test":
-        mp_inference(config_kwargs)
+ 
     else:
         inference( config_kwargs)
     

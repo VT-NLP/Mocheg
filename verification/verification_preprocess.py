@@ -12,7 +12,7 @@ def drop_invalid_data_for_verification(df):
     
     
 def preprocess_for_verification_one_subset(data_path):
-    out_name="Corpus2_for_verification_v1.csv"
+    out_name="Corpus2_for_verification.csv"
     merge_evidence( data_path,out_name,drop_invalid_data_for_verification)
     clean_text_evidence( data_path,out_name) 
     add_image_evidence(data_path,out_name)
