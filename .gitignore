@@ -13,9 +13,14 @@ dataset_builder/multi_media/Results/**
 dataset_builder/final_corpus/**
 dataset_builder/twitter/**
 dataset_builder/preprocess.sh 
+inference_script.sh
+main.py
+train_script.sh
+script.sh
 #TODO
  
-
+checkpoint
+data
 ##
 *.tar.gz
 *.png 
@@ -38,3 +43,6 @@ dataset_builder/main.py
 dataset_builder/test.py
 README_ref.md
 dataset_builder/multi_media/util/tried_image_crawler/ 
+
+ 
+retrieval/output/ 

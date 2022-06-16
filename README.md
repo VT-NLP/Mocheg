@@ -1,6 +1,6 @@
 >📋  End-to-End Multimodal Fact-Checking and Explanation Generation: A Challenging Dataset and Models
 
-# My Paper Title
+# End-to-End Multimodal Fact-Checking and Explanation Generation: A Challenging Dataset and Models
 
 This repository is the official implementation of [End-to-End Multimodal Fact-Checking and Explanation Generation: A Challenging Dataset and Models](https://arxiv.org/abs/2205.12487). 
 
@@ -51,15 +51,14 @@ python train.py --input-data <path_to_data> --alpha 10 --beta 20
 
 >📋  Describe how to train the models, with example commands on how to train the models in your paper, including the full training procedure and appropriate hyperparameters. -->
 
-<!-- ## Evaluation
+## Evaluation
 
-To evaluate my model on ImageNet, run:
+To evaluate models on MOCHEG, run:
 
 ```eval
-python eval.py --model-file mymodel.pth --benchmark imagenet
+python eval.sh
 ```
-
->📋  Describe how to evaluate the trained models on benchmarks reported in the paper, give commands that produce the results (section below). -->
+ 
  
 
 <!-- ## Results
@@ -79,6 +78,7 @@ Our model achieves the following performance on :
 ## Credit: 
 
 This repository was build by [Barry Menglong Yao](https://barry-yao.netlify.app/), Aditya Shah.
+
 The data crawler scripts are based on [conll2019-snopes-crawling](https://github.com/UKPLab/conll2019-snopes-crawling).
 
 ## Contributing
