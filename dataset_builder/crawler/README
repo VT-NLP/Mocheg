@@ -1,0 +1,11 @@
+##################################################
+This is crawler in order to reproduce the Snopes and Politifact Corpus. When first run the program, it will access the MAVEN repository to get all the libraries needed.
+###################################################
+
+1. install the program
+mvn clean install
+
+2. Run mode3 if you want to reproduce the Corpus.
+mvn exec:java -Dexec.mainClass=main.App -Dexec.args="mode3"
+
+The program will generate two main files, Corpus2 and Corpus3, Corpus2 contains the claim, evidence, Origin, truthfulness label.
