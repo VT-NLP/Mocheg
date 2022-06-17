@@ -111,16 +111,27 @@ def gen_corpus_embedding_with_cache(corpus,model,data_folder,use_precomputed_cor
     emb_folder=os.path.join(corpus_folder,f"supplementary")
     emb_filename = 'img_corpus_emb.pkl'
     emb_dir=os.path.join(emb_folder,emb_filename)
+    corpus_dict_path=os.path.join(emb_folder,"corpus_dict.pkl")
     if use_precomputed_corpus_embeddings and os.path.exists(emb_dir): 
         with open(emb_dir, 'rb') as fIn:
             emb_file = pickle.load(fIn)  
             img_emb, img_names =emb_file["img_emb"],emb_file["img_names"] 
         print("Images:", len( img_names))
+        if os.path.exists(corpus_dict_path):
+            with open(corpus_dict_path, 'rb') as fIn:
+                corpus = pickle.load(fIn)  
+            print("cached corpus_dict:", len( corpus))
+        else:
+            print(f"Error! must have corpus_dict.pkl in {emb_folder} while use img_corpus_emb.pkl in {emb_folder}")
+            exit()
     else:
         img_emb=gen_corpus_embedding(corpus,model)
         emb_file = { "img_emb":  img_emb, "img_names": list(corpus.keys()) }            #,"img_folder":img_folder
         pickle.dump( emb_file, open(emb_dir , "wb" ) )
-    return img_emb
+        pickle.dump( corpus, open(corpus_dict_path , "wb" ) )
+        
+    
+    return img_emb,corpus
 
 def gen_corpus_embedding(corpus,model):
     batch_size=480 #480
@@ -157,7 +168,7 @@ def gen_evaluator(data_folder,corpus,media,model,use_precomputed_corpus_embeddin
     logging.info("Corpus: {}".format(len(corpus)))
     save_query_result_path=os.path.join(model_save_path,f"query_result_{media}.pkl")
     if media=="img":
-        corpus_embedding=gen_corpus_embedding_with_cache(corpus,model,data_folder,use_precomputed_corpus_embeddings,media)
+        corpus_embedding,corpus=gen_corpus_embedding_with_cache(corpus,model,data_folder,use_precomputed_corpus_embeddings,media)
         ir_evaluator =MultiMediaInformationRetrievalEvaluator(dev_queries, corpus, dev_rel_docs,
                                                             show_progress_bar=True,
                                                             corpus_chunk_size=100000,

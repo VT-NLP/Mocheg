@@ -46,3 +46,6 @@ dataset_builder/multi_media/util/tried_image_crawler/
  
 retrieval/output/ 
 wandb/ 
+controllable/generation/output/ 
+verification/output
+.vscode/launch.json

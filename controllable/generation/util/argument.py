@@ -97,18 +97,18 @@ class DataTrainingArguments:
         metadata={"help": "The name of the column in the datasets containing the summaries (for summarization)."},
     )
     train_file: Optional[str] = field(
-        default="/home/menglong/workspace/code/referred/conll2019-snopes-crawling/final_corpus/mocheg2/train/Corpus2_for_controllable_generation.csv",
+        default="data/train/Corpus2_for_controllable_generation.csv",
         metadata={"help": "The input training data file (a jsonlines or csv file)."}
     )
     validation_file: Optional[str] = field(
-        default="/home/menglong/workspace/code/referred/conll2019-snopes-crawling/final_corpus/mocheg2/val/Corpus2_for_controllable_generation.csv",
+        default="data/val/Corpus2_for_controllable_generation.csv",
         metadata={
             "help": "An optional input evaluation data file to evaluate the metrics (rouge) on "
             "(a jsonlines or csv file)."
         },
     )
     test_file: Optional[str] = field(
-        default="/home/menglong/workspace/code/referred/conll2019-snopes-crawling/final_corpus/mocheg2/test/Corpus2_for_controllable_generation.csv",
+        default="data/test/Corpus2_for_controllable_generation.csv",
         metadata={
             "help": "An optional input test data file to evaluate the metrics (rouge) on " "(a jsonlines or csv file)."
         },

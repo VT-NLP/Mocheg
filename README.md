@@ -30,7 +30,7 @@ pip install -r requirements.txt
 
 You can download dataset here:
 
-- [MOCHEG](http://nlplab1.cs.vt.edu/~menglong/project/multimodal/fact_checking/MOCHEG/dataset/). 
+- [MOCHEG version 1](http://nlplab1.cs.vt.edu/~menglong/project/multimodal/fact_checking/MOCHEG/dataset/). 
 
 
 

@@ -79,9 +79,9 @@ def hyper_search(config_kwargs):
 @click.command()
 @click.pass_context
 @click.option('--outdir', help='Where to save the results', required=True, metavar='DIR',default="verification/output/runs")
-@click.option('--train_dir', help='input', required=True, metavar='DIR',default='/home/menglong/workspace/code/referred/conll2019-snopes-crawling/final_corpus/mocheg2/train') 
-@click.option('--val_dir', help='input', required=True, metavar='DIR',default='/home/menglong/workspace/code/referred/conll2019-snopes-crawling/final_corpus/mocheg2/val') 
-@click.option('--test_dir', help='input', required=True, metavar='DIR',default='/home/menglong/workspace/code/referred/conll2019-snopes-crawling/final_corpus/mocheg2/test') 
+@click.option('--train_dir', help='input', required=True, metavar='DIR',default='data/train') 
+@click.option('--val_dir', help='input', required=True, metavar='DIR',default='data/val') 
+@click.option('--test_dir', help='input', required=True, metavar='DIR',default='data/test') 
 @click.option('--evidence_file_name', help='input', required=True, metavar='DIR',default="Corpus2_for_verification.csv") #'retrieval_result.csv' 
 @click.option('--max_image_num', type=int,default=5, metavar='INT')
 @click.option('--verbos', type=str,default="y" )  
