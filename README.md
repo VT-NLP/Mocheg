@@ -20,6 +20,8 @@ Please use the following citation:
 To install requirements:
 
 ```setup
+conda create -n mocheg python=3.8.10
+conda install pytorch==1.9.0 torchvision==0.10.0 torchaudio==0.9.0 cudatoolkit=10.2 -c pytorch
 pip install -r requirements.txt
 ```
 
@@ -40,26 +42,33 @@ You can download pretrained models here:
 
 - [pretrained models](http://nlplab1.cs.vt.edu/~menglong/project/multimodal/fact_checking/MOCHEG/checkpoint/) trained on MOCHEG. 
 
-
-<!-- ## Training
-
-To train the model(s) in the paper, run this command:
-
-```train
-python train.py --input-data <path_to_data> --alpha 10 --beta 20
-```
-
->📋  Describe how to train the models, with example commands on how to train the models in your paper, including the full training procedure and appropriate hyperparameters. -->
-
 ## Evaluation
 
 To evaluate models on MOCHEG, run:
 
 ```eval
-python eval.sh
+bash eval.sh
 ```
  
- 
+-----------------------------------------------------------------------------------------
+
+## Training (Optional)
+
+If you want to train models by yourself, run this command:
+
+```train
+bash train.sh
+```
+<!-- 
+>📋  Describe how to train the models, with example commands on how to train the models in your paper, including the full training procedure and appropriate hyperparameters. -->
+
+## Dataset Build (Optional)
+
+If you want to build dataset by yourself, run this command:
+
+```build_dataset
+bash build_dataseth.sh
+``` 
 
 <!-- ## Results
 
