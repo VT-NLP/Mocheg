@@ -43,7 +43,7 @@ dataset_builder/test.py
 README_ref.md
 dataset_builder/multi_media/util/tried_image_crawler/ 
 
- 
+!retrieval/data 
 retrieval/output/ 
 wandb/ 
 controllable/generation/output/ 
