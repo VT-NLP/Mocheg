@@ -51,6 +51,8 @@ bash eval.sh
 ```
  
 -----------------------------------------------------------------------------------------
+## Dataset Format (Optional)
+Dataset Format and structure are explained in document/mocheg-supplementary_material.pdf.
 
 ## Training (Optional)
 
