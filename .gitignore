@@ -11,7 +11,7 @@ dataset_builder/multi_media/Results/**
 
 #TODO
 dataset_builder/final_corpus/**
-dataset_builder/twitter/**
+
 dataset_builder/preprocess.sh 
 inference_script.sh
 train_script.sh
