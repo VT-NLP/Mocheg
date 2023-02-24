@@ -36,6 +36,9 @@ You can download dataset here:
 
 - Dataset Format and structure are explained in document/MOCHEG_dataset_statement.pdf.
 
+- If you just want to reproduce the claim verification or explanation generation experiments, the above dataset is all you need. If you want to run the evidence retrieval experiments to get a sense of the dataset, you can also use the above dataset. However, if you want to reproduce our evidence retrieval experiments, you need to merge the current dataset with our tweets corpus, which contains only 2,916 tweets. You can obtain this merged dataset either by emailing us or running the scripts under dataset_builder/twitter. (In accordance with
+[the Twitter developer terms](https://developer.twitter.com/en/developer-terms/more-on-restricted-use-cases), we will only share the Twitter IDs and scripts to crawl tweets based on Twitter API. However, according to [Twitter policy](https://developer.twitter.com/en/developer-terms/more-on-restricted-use-cases), they permit sharing up to 50,000 hydrated Twitter content per recipient via non-automated means)
+
 
 ## Pre-trained Models
 
