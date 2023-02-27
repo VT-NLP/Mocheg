@@ -5,35 +5,31 @@ import os
 import urllib.request
 from urllib.error import URLError, HTTPError
 
-def get_twitter_url(LinkCorpus_file):
+import argparse
+
+from dataset_builder.twitter.merger import merge_main
+def read_twitter_url(LinkCorpus_file):
+    data = pd.read_csv(LinkCorpus_file)
+    urls = data['Link URL']
+    ids = data['claim_id']
+    r_ids = data['relevant_document_id']
+    snops = data['Snopes URL']
+    archive_url=data['Archive Url']
     tweet_urls = []
     claim_ids = []
     relevant_doc_ids = []
     snopes_url = []
-    count = 0
-    data = pd.read_csv(LinkCorpus_file)
-    urls = data['Original Link URL']
-    ids = data['claim_id']
-    r_ids = data['relevant_document_id']
-    snops = data['Snopes URL']
+    archive_url_list=[]
     for index, url in enumerate(urls):
-        words = url.split('/')
-        if 'www.twitter.com' in words:
-            tweet_urls.append(url)
-            claim_ids.append(ids[index])
-            relevant_doc_ids.append(r_ids[index])
-            snopes_url.append(snops[index])
-            count+=1
-        elif 'twitter.com' in words:
-            tweet_urls.append(url)
-            claim_ids.append(ids[index])
-            relevant_doc_ids.append(r_ids[index])
-            snopes_url.append(snops[index])
-            count+=1
-    print(count)
-    return tweet_urls,claim_ids,relevant_doc_ids,snopes_url
-
-def get_status_id(tweet_urls,claim_ids,relevant_doc_ids,snopes_url):
+         
+        tweet_urls.append(url)
+        claim_ids.append(ids[index])
+        relevant_doc_ids.append(r_ids[index])
+        snopes_url.append(snops[index])
+        archive_url_list.append(archive_url[index])
+    return tweet_urls,claim_ids,relevant_doc_ids,snopes_url,archive_url_list
+     
+def get_status_id(tweet_urls,claim_ids,relevant_doc_ids,snopes_url,archive_url_list):
     from urllib.parse import urlparse
     import re
     status_id = []
@@ -41,9 +37,9 @@ def get_status_id(tweet_urls,claim_ids,relevant_doc_ids,snopes_url):
     new_rel_doc_ids = []
     new_snoops = []
     new_tweet_urls = []
-
-    for idx, item in enumerate(tweet_urls):
-        url = item
+    new_archive_url_list=[]
+    for idx, url in enumerate(tweet_urls):
+      
         df = urlparse(url).path.split('/')
         for item in df:
             if len(item) ==19 or len(item) == 18:
@@ -52,13 +48,13 @@ def get_status_id(tweet_urls,claim_ids,relevant_doc_ids,snopes_url):
                 new_rel_doc_ids.append(relevant_doc_ids[idx])
                 new_snoops.append(snopes_url[idx])
                 new_tweet_urls.append(tweet_urls[idx])
+                new_archive_url_list.append(archive_url_list[idx])
     print(f"{len(status_id)}, {len(new_claim_ids)}")
-    return  status_id,new_tweet_urls,new_claim_ids,new_rel_doc_ids,new_snoops
+    return  status_id,new_tweet_urls,new_claim_ids,new_rel_doc_ids,new_snoops,new_archive_url_list
     
     
-def get_auth():
-    consumer_key = "kSsK1G38xcyMHnhXOXyurxrOH"
-    consumer_secret = "SiVcbtucDekrZtlBndFkNRsxj5p2AF6hli3rrabd3Shced7BYd"
+def get_auth(consumer_key,consumer_secret):
+    
     callback_uri = 'oob'
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret, callback_uri)
     redirect_url = auth.get_authorization_url()
@@ -70,7 +66,7 @@ def get_auth():
     return api
  
  
-def fetch_tweets(parent_dir,api,status_id,new_tweet_urls,new_claim_ids,new_rel_doc_ids,new_snoops):
+def fetch_tweets(parent_dir,api,status_id,new_tweet_urls,new_claim_ids,new_rel_doc_ids,new_snoops,archive_url_list):
     import pickle
     import time
 
@@ -79,7 +75,7 @@ def fetch_tweets(parent_dir,api,status_id,new_tweet_urls,new_claim_ids,new_rel_d
     rel_doc_ids = []
     snoopes_url = []
     twitter_url = [] 
-     
+    new_archive_url_list=[]
     for idx, id in enumerate(status_id):
         
         try:
@@ -89,7 +85,8 @@ def fetch_tweets(parent_dir,api,status_id,new_tweet_urls,new_claim_ids,new_rel_d
             rel_doc_ids.append(new_rel_doc_ids[idx])
             snoopes_url.append(new_snoops[idx])
             twitter_url.append(new_tweet_urls[idx])
-            parse_one_tweet(parent_dir,data,new_claim_ids[idx],new_rel_doc_ids[idx],new_snoops[idx],new_tweet_urls[idx],idx)
+            new_archive_url_list.append(archive_url_list[idx])
+            parse_one_tweet(parent_dir,data,new_claim_ids[idx],new_rel_doc_ids[idx],new_snoops[idx],new_tweet_urls[idx],archive_url_list[idx],idx)
             time.sleep(1)
         except Exception as e: 
             print(e)
@@ -115,7 +112,7 @@ def stop_handled( cursor):
             return 
 import csv
 def write_csv(parent_dir,data):
-    with open(os.path.join(parent_dir,'twitter_data_new.csv'), 'a') as outfile:
+    with open(os.path.join(parent_dir,'corpus_3_twitter_data.csv'), 'a') as outfile:
         writer = csv.writer(outfile)
         writer.writerow(data)
 
@@ -123,10 +120,12 @@ import pickle
 import json
 
 import pandas as pd
-def parse_one_tweet(parent_dir,tweet,claim_id,relevant_doc_id,snoop,tweet_url,idx):
-    image_dir = parent_dir+'/images'
-    videos_dir  =parent_dir+'/videos'
- 
+def parse_one_tweet(parent_dir,tweet,claim_id,relevant_doc_id,snoop,tweet_url,archive_url,idx):
+    image_dir = os.path.join(parent_dir,'/images')
+    videos_dir  =os.path.join(parent_dir ,'/videos')
+    os.makedirs(image_dir,exist_ok=True)
+    os.makedirs(videos_dir,exist_ok=True)
+        
     text = tweet['full_text']
     id = tweet['id_str']
     prefix=str(claim_id).zfill(5)+"-"+str(relevant_doc_id).zfill(5)+"-"
@@ -181,18 +180,11 @@ def parse_one_tweet(parent_dir,tweet,claim_id,relevant_doc_id,snoop,tweet_url,id
                         
                         
 
-    if media_type == None:
-        dat = [str(id), claim_id, relevant_doc_id, snoop, tweet_url, text, 'None', 'None']
-        write_csv(parent_dir,dat)
+ 
+    dat = [  claim_id, relevant_doc_id, snoop, tweet_url,archive_url, text ]
+    write_csv(parent_dir,dat)
 
-    elif media_type == 'photo':
-        dat = [str(id), claim_id, relevant_doc_id, snoop, tweet_url, text, media_type, photo_url]
-        write_csv(parent_dir,dat) 
-
-    elif media_type ==  'video':
-        dat = [str(id), claim_id, relevant_doc_id, snoop, tweet_url, text, media_type, video_url]
-        write_csv(parent_dir,dat) 
-
+     
                 
 
     if idx<5:
@@ -208,18 +200,34 @@ def parse_one_tweet(parent_dir,tweet,claim_id,relevant_doc_id,snoop,tweet_url,id
 
 
 
-def main():
-    LinkCorpus_file = 'final_corpus/politifact_v1/LinkCorpus.csv'
-    parent_dir="final_corpus/politifact_v1/twitter"
-    tweet_urls,claim_ids,relevant_doc_ids,snopes_url=get_twitter_url(LinkCorpus_file)
-    status_id,new_tweet_urls,new_claim_ids,new_rel_doc_ids,new_snoops=get_status_id(tweet_urls,claim_ids,relevant_doc_ids,snopes_url)
-    api=get_auth()
-    claim_ids,rel_doc_ids,snoopes_url,twitter_url=fetch_tweets(parent_dir,api,status_id,new_tweet_urls,new_claim_ids,new_rel_doc_ids,new_snoops)
+def main(data_dir,consumer_key,consumer_secret):
+ 
+    LinkCorpus_file =f'{data_dir}/twitter_id.csv'
+    output_dir=f"{data_dir}/twitter"
+    os.makedirs(output_dir,exist_ok=True)
+    tweet_urls,claim_ids,relevant_doc_ids,snopes_url,archive_url_list=read_twitter_url(LinkCorpus_file)
+    status_id,new_tweet_urls,new_claim_ids,new_rel_doc_ids,new_snoops,archive_url_list=get_status_id(tweet_urls,claim_ids,relevant_doc_ids,snopes_url,archive_url_list)
+    api=get_auth(consumer_key,consumer_secret)
+    claim_ids,rel_doc_ids,snoopes_url,twitter_url=fetch_tweets(output_dir,api,status_id,new_tweet_urls,new_claim_ids,new_rel_doc_ids,new_snoops,archive_url_list)
     # parse_tweet(parent_dir,claim_ids,rel_doc_ids,snoopes_url,twitter_url)
+    merge_main(data_dir)
     
     
-    
-main()
-    
+
+def get_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--consumer_key", type=str, default=None, help="Your twitter consumer_key"  )
+    parser.add_argument("--consumer_secret", type=str, default=None, help="Your twitter consumer_secret"  )
+    parser.add_argument("--data_dir", type=str, default="data", help="Your data_dir"  )
+    args = parser.parse_args()
+
+    print(args)
+    return args
+ 
+        
+
+if __name__ == "__main__":
+    args=get_args()
+    main(args.consumer_key,args.consumer_secret) 
 
  

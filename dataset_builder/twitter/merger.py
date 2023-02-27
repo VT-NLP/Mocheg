@@ -7,21 +7,22 @@ import csv
     
 #     # converting data frame to csv
 #     file.to_csv("twitter_data_new.csv", header=headerList, index=False)
-    
+import shutil 
 def merge(parent_dir,twitter_dir):
     import pandas as pd
-    data_df = pd.read_csv(twitter_dir+"/twitter_data_new.csv")
+    data_df = pd.read_csv(twitter_dir+"/corpus_3_twitter_data.csv")
     
         
     for _,row in data_df.iterrows():
             
-        claim_id = row['Claim_id']
-        relevant_doc_id = row['Relevant_doc_id']
-        snopes_url = row['snoopes_url']
-        link_url = row['link_url']
-        text = row['Text']
+        claim_id = row['claim_id']
+        relevant_doc_id = row['relevant_document_id']
+        snopes_url = row['Snopes URL']
+        link_url = row['Link URL']
+        archive_url=row["Archive Url"]
+        text = row['Origin Document']
 
-        data = [claim_id, relevant_doc_id,  snopes_url, link_url, " ", text] 
+        data = [claim_id, relevant_doc_id,  snopes_url, link_url, archive_url, text] 
 
         write_csv(parent_dir,data)
             
@@ -42,15 +43,24 @@ def statistic(parent_dir,twitter_dir):
     
     
 
-
-def main():
-    parent_dir="final_corpus/politifact_v2"
-    twitter_dir=parent_dir+ "/twitter"
-  
-    # merge(parent_dir,twitter_dir)
-    snopes_sum=statistic("/home/aditya/misinformation/data/twitter_data","/home/aditya/misinformation/data/twitter_data")
-    politifact_sum=statistic(parent_dir,twitter_dir)
-    print(snopes_sum+politifact_sum)
+def split_image_for_one_split(data_path,splited_data_path)    :
+    image_corpus=os.path.join(data_path ,"images") 
+    img_names=os.listdir(image_corpus)
+    i=0
+    length=len(img_names)
+    for filepath in  img_names:
+         
+        source_path=os.path.join(image_corpus,filepath)
+        target_path=os.path.join(os.path.join(splited_data_path ,"images") ,filepath)
+        os.rename(source_path,target_path )
+          
+    print("finish split_image_for_one_split")
+    
+import os 
+def merge_main(data_dir):
+    twitter_dir=data_dir+ "/twitter"
+    merge(data_dir,twitter_dir)
+    split_image_for_one_split(twitter_dir,data_dir)
     
     
-main()
+# main()

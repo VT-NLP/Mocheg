@@ -32,7 +32,7 @@ pip install -r requirements.txt
 
 You can download dataset here:
 
-- [MOCHEG version 1](https://doi.org/10.5281/zenodo.6653771). 
+- [MOCHEG version 1](http://nlplab1.cs.vt.edu/~menglong/project/multimodal/fact_checking/MOCHEG/dataset). 
 
 - Dataset Format and structure are explained in document/MOCHEG_dataset_statement.pdf.
 
