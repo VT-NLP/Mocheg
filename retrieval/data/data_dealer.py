@@ -34,6 +34,8 @@ def get_relevant_document_dir(splited_dir):
     
 
 class DataDealer:
+    def __init__(self,mode=None) :
+        self.mode=mode
     def load_corpus(self,data_folder, corpus_max_size):
         pass 
 class ImageDataDealer:
@@ -83,6 +85,26 @@ class ImageDataDealer:
              
              
 
+def gen_corpus_embedding(corpus,model):
+    batch_size=480 #480
+    live_num_in_current_batch=0
+    live_num=0
+    current_image_batch=[]
+    total_img_emb= torch.tensor([],device= torch.device('cuda'))
+    corpus_len=len(corpus)
+    for corpus_id,corpus_img_path in corpus.items():
+        image=Image.open(corpus_img_path)
+        current_image_batch.append(image)
+        live_num_in_current_batch+=1
+        
+        if live_num_in_current_batch%batch_size==0:
+            img_emb = model.encode(current_image_batch, batch_size=batch_size, convert_to_tensor=True, show_progress_bar=True)
+            total_img_emb=torch.cat([total_img_emb,img_emb],0)
+            live_num_in_current_batch=0
+            current_image_batch=[]
+            live_num+=batch_size
+            print(live_num/corpus_len)
+    return total_img_emb
 def gen_corpus_embedding_with_cache(corpus,model,data_folder,use_precomputed_corpus_embeddings,media):
     corpus_folder= get_relevant_document_dir(data_folder)
     emb_folder=os.path.join(corpus_folder,f"embed")

@@ -34,7 +34,7 @@ from retrieval.training.model import MultiMediaSentenceTransformer
 from retrieval.utils.enums import TrainAttribute
 from util.common_util import setup_with_args
 from util.read_example import   load_corpus_df
-from retrieval.data.data_dealer import ImageDataDealer, TextDataDealer 
+from retrieval.data.data_dealer import ImageDataDealer, TextDataDealer, gen_corpus_embedding 
 from util.read_example import get_relevant_document_dir
  
 def load_corpus(data_folder, corpus_max_size):
@@ -133,26 +133,6 @@ def gen_corpus_embedding_with_cache(corpus,model,data_folder,use_precomputed_cor
     
     return img_emb,corpus
 
-def gen_corpus_embedding(corpus,model):
-    batch_size=480 #480
-    live_num_in_current_batch=0
-    live_num=0
-    current_image_batch=[]
-    total_img_emb= torch.tensor([],device= torch.device('cuda'))
-    corpus_len=len(corpus)
-    for corpus_id,corpus_img_path in corpus.items():
-        image=Image.open(corpus_img_path)
-        current_image_batch.append(image)
-        live_num_in_current_batch+=1
-        
-        if live_num_in_current_batch%batch_size==0:
-            img_emb = model.encode(current_image_batch, batch_size=batch_size, convert_to_tensor=True, show_progress_bar=True)
-            total_img_emb=torch.cat([total_img_emb,img_emb],0)
-            live_num_in_current_batch=0
-            current_image_batch=[]
-            live_num+=batch_size
-            print(live_num/corpus_len)
-    return total_img_emb
 
 def gen_evaluator(data_folder,corpus,media,model,use_precomputed_corpus_embeddings,model_save_path):
     dev_rel_docs,needed_pids,needed_qids,_=load_qrels(data_folder, media)

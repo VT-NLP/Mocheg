@@ -32,7 +32,7 @@ pip install -r requirements.txt
 
 You can download dataset here:
 
-- [MOCHEG version 1](http://nlplab1.cs.vt.edu/~menglong/project/multimodal/fact_checking/MOCHEG/dataset). 
+- [MOCHEG version 1](http://nlplab1.cs.vt.edu/~menglong/project/multimodal/fact_checking/MOCHEG/dataset/mocheg.tar.gz). 
 
 - Dataset Format and structure are explained in document/MOCHEG_dataset_statement.pdf.
 
@@ -44,7 +44,7 @@ You can download dataset here:
 
 You can download pretrained models here:
 
-- [pretrained models](http://nlplab1.cs.vt.edu/~menglong/project/multimodal/fact_checking/MOCHEG/checkpoint/) trained on MOCHEG. 
+- [pretrained models](http://nlplab1.cs.vt.edu/~menglong/project/multimodal/fact_checking/MOCHEG/checkpoint/checkpoint.tar.gz) trained on MOCHEG. 
 
 ## Evaluation
 
