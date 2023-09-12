@@ -2,7 +2,7 @@
 
 # End-to-End Multimodal Fact-Checking and Explanation Generation: A Challenging Dataset and Models
 
-This repository is the official implementation of [End-to-End Multimodal Fact-Checking and Explanation Generation: A Challenging Dataset and Models](https://arxiv.org/abs/2205.12487). 
+This repository is the official implementation of [End-to-End Multimodal Fact-Checking and Explanation Generation: A Challenging Dataset and Models](https://arxiv.org/abs/2205.12487). [Best Paper Honorable Mention at SIGIR 2023](https://sigir.org/sigir2023/program/best-paper-award/). 
 
 Please use the following citation:
 ```

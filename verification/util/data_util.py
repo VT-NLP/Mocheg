@@ -64,9 +64,9 @@ class MisinformationDataset(torch.utils.data.Dataset):
             
         if img_list!= []:
             # processor for clip model    
-            inputs = self.processor(text=claim_and_text_evidence_list, images=img_list, return_tensors="pt", padding=True,truncation=True)
+            inputs = self.processor(text=claim_and_text_evidence_list, images=img_list, return_tensors="pt", padding=True,truncation=True, max_length=77)
         else:
-            inputs = self.processor(text=claim_and_text_evidence_list,  return_tensors="pt", padding=True,truncation=True)
+            inputs = self.processor(text=claim_and_text_evidence_list,  return_tensors="pt", padding=True,truncation=True, max_length=77)
              
          
 
