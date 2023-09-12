@@ -6,11 +6,21 @@ This repository is the official implementation of [End-to-End Multimodal Fact-Ch
 
 Please use the following citation:
 ```
-@article{yao2022end,
-  title={End-to-End Multimodal Fact-Checking and Explanation Generation: A Challenging Dataset and Models},
-  author={Yao, Barry Menglong and Shah, Aditya and Sun, Lichao and Cho, Jin-Hee and Huang, Lifu},
-  journal={arXiv preprint arXiv:2205.12487},
-  year={2022}
+@inproceedings{10.1145/3539618.3591879,
+author = {Yao, Barry Menglong and Shah, Aditya and Sun, Lichao and Cho, Jin-Hee and Huang, Lifu},
+title = {End-to-End Multimodal Fact-Checking and Explanation Generation: A Challenging Dataset and Models},
+year = {2023},
+isbn = {9781450394086},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3539618.3591879},
+doi = {10.1145/3539618.3591879},
+booktitle = {Proceedings of the 46th International ACM SIGIR Conference on Research and Development in Information Retrieval},
+pages = {2733–2743},
+numpages = {11},
+keywords = {explainable fact-checking, multimodal fact-checking, explanation generation, evidence retrieval, stance detection},
+location = {Taipei, Taiwan},
+series = {SIGIR '23}
 }
 ```
 <!-- >📋  Optional: include a graphic explaining your approach/main result, bibtex entry, link to demos, blog posts and tutorials -->
