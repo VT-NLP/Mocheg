@@ -11,4 +11,5 @@ python verify.py --mode=inference   --model_type=CLAIM_TEXT_IMAGE_attention_5_4 
 
 ### explanation generation
 python main.py --mode=preprocess_for_generation
-python controllable_generation.py   --do_predict --per_device_train_batch_size 8 --per_device_eval_batch_size 8  --predict_with_generate --text_column truth_claim_evidence --summary_column cleaned_ruling_outline  --model_name_or_path checkpoint/controllable_generation/generation/without  --test_file data/test/Corpus2_for_controllable_generation.csv  --output_dir controllable/generation/output/bart/run_0/without    
+CUDA_VISIBLE_DEVICES=0 python controllable_generation.py --do_predict --per_device_train_batch_size 8 --per_device_eval_batch_size 8  --predict_with_generate --text_column truth_claim_evidence --summary_column cleaned_ruling_outline  --model_name_or_path checkpoint/controllable_generation/generation/without  --test_file data/test/Corpus2_for_controllable_generation.csv  --train_file data/train/Corpus2_for_controllable_generation.csv   --validation_file data/val/Corpus2_for_controllable_generation.csv   --output_dir controllable/generation/output/bart/run_0/without --classifier_checkpoint_dir=#Path_to_the_generation_classfier
+                       
