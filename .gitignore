@@ -20,7 +20,8 @@ script.sh
 #TODO
  
 checkpoint
-data
+data/mocheg
+data/mocheg2
 ##
 *.tar.gz
 *.png 
@@ -50,3 +51,4 @@ wandb/
 controllable/generation/output/ 
 verification/output
 .vscode 
+test/trouble_shooting.sh

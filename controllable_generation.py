@@ -53,7 +53,10 @@ def main():
         
         results=predict(training_args,trainer,predict_dataset,max_length,num_beams,data_args,tokenizer)
         
-        create_model_card(model_args,data_args,trainer,training_args)
+        try:
+            create_model_card(model_args,data_args,trainer,training_args)
+        except Exception as e:
+            print("Fail to create_model_card. But it is optional:"+e)
         
         return results
     else:

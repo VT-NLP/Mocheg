@@ -71,7 +71,7 @@ class ModelArguments:
         },
     )
     classifier_checkpoint_dir: str = field(
-        default="/home/menglong/workspace/code/misinformation_detection/controllable/classification/output/runs/00006-",
+        default="checkpoint/controllable_generation/explanation_classify",
         metadata={"help": "The specific model version to use (can be a branch name, tag name or commit id)."},
     )
 
