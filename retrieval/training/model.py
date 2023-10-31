@@ -8,6 +8,7 @@ import torch
 import json
 from sentence_transformers.model_card_templates import ModelCardTemplate
 from sentence_transformers.util import   fullname
+from sentence_transformers.util import   batch_to_device
 class MultiMediaSentenceTransformer( SentenceTransformer):
     def fit(self,
             train_objectives ,
@@ -114,6 +115,8 @@ class MultiMediaSentenceTransformer( SentenceTransformer):
 
 
                     features, labels = data
+                    labels = labels.to(self._target_device)	
+                    features = list(map(lambda batch: batch_to_device(batch, self._target_device), features))
 
 
                     if use_amp:
