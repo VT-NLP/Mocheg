@@ -1,5 +1,6 @@
 
 
+from retrieval.utils.news import News
 from util.preprocess import merge_evidence
 
 import os
@@ -38,9 +39,10 @@ def clean_text_evidence(data_path,out_name):
  
 
 
+ 
 def add_image_evidence(data_path,out_name):
     news_dict={}
-    news_dict,_=read_image(data_path,news_dict,content="proof")
+    news_dict,_=read_image(data_path,news_dict,content="img")
     corpus=os.path.join(data_path,out_name)
     img_evidence_str_list=[]
     evidence_df = pd.read_csv(corpus ,encoding="utf8")  
